@@ -29,8 +29,6 @@ class Forca {
         this.dados.vidas -= 1;
       }
     }
-
-    this.avaliarResultados();
   }
 
   validarChute(chute) {
@@ -104,6 +102,7 @@ class Forca {
         jogo.chutar(e.target.innerText);
         this.renderDisplay();
         e.target.disabled = true;
+        this.avaliarResultados();
       }
     });
 
@@ -126,6 +125,10 @@ class Forca {
         break;
     }
   }
+
+  endGame() {
+    //todo clear elements
+  }
 }
 
 // module.exports = Forca;
@@ -133,3 +136,7 @@ class Forca {
 const jogo = new Forca("laranja");
 
 jogo.init();
+
+// async function getWord() {
+//   data =
+// }
