@@ -78,9 +78,10 @@ class Forca {
 
     vidasEl.innerHTML = "";
     display.innerHTML = "";
-    const displayLetters = jogo.dados.palavra;
 
-    for (let x = 0; x < jogo.dados.vidas; x++) {
+    const displayLetters = this.dados.palavra;
+
+    for (let x = 0; x < this.dados.vidas; x++) {
       vidasEl.innerHTML += '<i class="fa-solid fa-heart-circle-bolt"></i>';
     }
 
@@ -94,22 +95,26 @@ class Forca {
   createButtons() {
     const gameLettersDiv = document.querySelector(".game-letters");
 
-    gameLettersDiv.addEventListener("click", (e) => {
+    const handleClick = (e) => {
       if (e.target.classList.contains("letter-button")) {
-        jogo.palavraSecreta.split("").includes(e.target.innerText.toLowerCase())
+        this.palavraSecreta.split("").includes(e.target.innerText.toLowerCase())
           ? e.target.classList.add("correct")
           : e.target.classList.add("wrong");
-        jogo.chutar(e.target.innerText);
+
+        this.chutar(e.target.innerText);
         this.renderDisplay();
         e.target.disabled = true;
         this.avaliarResultados();
       }
-    });
+    };
+
+    gameLettersDiv.innerHTML = "";
 
     for (let i = 65; i <= 90; i++) {
       const button = document.createElement("button");
       button.classList.add("letter-button");
       button.innerText = String.fromCharCode(i);
+      button.addEventListener("click", handleClick);
       gameLettersDiv.append(button);
     }
   }
@@ -125,10 +130,6 @@ class Forca {
         break;
     }
   }
-
-  endGame() {
-    //todo clear elements
-  }
 }
 
 // module.exports = Forca;
@@ -140,3 +141,10 @@ jogo.init();
 // async function getWord() {
 //   data =
 // }
+
+
+const startButton = document.querySelector(".start-section_start-button");
+
+startButton.addEventListener("click", () => {
+  
+})
