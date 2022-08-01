@@ -2,7 +2,11 @@ class Forca {
   palavraSecreta = "";
 
   constructor(palavraSecreta) {
-    this.palavraSecreta = palavraSecreta.toLowerCase();
+    this.palavraSecreta = palavraSecreta
+      .toLowerCase()
+      .split("")
+      .filter((el) => el !== "")
+      .join("");
     this.dados.palavra = "_".repeat(palavraSecreta.length).split("");
   }
 
@@ -41,6 +45,8 @@ class Forca {
 
   preencherLetras(letra) {
     const palavraSecretaArray = this.palavraSecreta.split("");
+
+    console.log(palavraSecretaArray);
 
     for (let i = 0; i < palavraSecretaArray.length; i++) {
       if (letra === palavraSecretaArray[i]) {
@@ -134,17 +140,26 @@ class Forca {
 
 // module.exports = Forca;
 
-const jogo = new Forca("laranja");
+async function getWord() {
+  const response = await fetch("https://api.dicionario-aberto.net/random");
 
-jogo.init();
+  const data = await response.json();
 
-// async function getWord() {
-//   data =
-// }
+  console.log(data);
 
+  return data;
+}
 
-const startButton = document.querySelector(".start-section_start-button");
+const startButton = document.querySelector("#start-button");
 
-startButton.addEventListener("click", () => {
-  
-})
+startButton.addEventListener("click", async () => {
+  // startButton.parentElement.parentElement.classList.add("hide");
+
+  const word = await getWord();
+
+  console.log(word);
+
+  const jogo = new Forca(word.word.normalize("NFD"));
+
+  jogo.init();
+});
