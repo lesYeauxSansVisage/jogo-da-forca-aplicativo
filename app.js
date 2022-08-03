@@ -2,11 +2,9 @@ class Forca {
   palavraSecreta = "";
 
   constructor(palavraSecreta) {
-    this.palavraSecreta = palavraSecreta
-      .toLowerCase()
-      .split("")
-      .filter((el) => el !== "")
-      .join("");
+    this.palavraSecreta = palavraSecreta.split("");
+
+    console.log(this.palavraSecreta);
     this.dados.palavra = "_".repeat(palavraSecreta.length).split("");
   }
 
@@ -44,12 +42,12 @@ class Forca {
   }
 
   preencherLetras(letra) {
-    const palavraSecretaArray = this.palavraSecreta.split("");
+    // const palavraSecretaArray = this.palavraSecreta.split("");
 
-    console.log(palavraSecretaArray);
+    // console.log(palavraSecretaArray);
 
-    for (let i = 0; i < palavraSecretaArray.length; i++) {
-      if (letra === palavraSecretaArray[i]) {
+    for (let i = 0; i < this.palavraSecreta.length; i++) {
+      if (letra === this.palavraSecreta[i]) {
         this.dados.palavra[i] = letra;
       }
     }
@@ -103,7 +101,7 @@ class Forca {
 
     const handleClick = (e) => {
       if (e.target.classList.contains("letter-button")) {
-        this.palavraSecreta.split("").includes(e.target.innerText.toLowerCase())
+        this.palavraSecreta.includes(e.target.innerText.toLowerCase())
           ? e.target.classList.add("correct")
           : e.target.classList.add("wrong");
 
@@ -126,16 +124,24 @@ class Forca {
   }
 
   avaliarResultados() {
+    const revealWord = document.querySelector(".reveal-word");
+    const endSection = document.querySelector(".end-section");
+
     switch (this.buscarEstado()) {
       case "ganhou":
-        alert("você ganhou");
+        revealWord.innerText = this.palavraSecreta.join("");
+        endSection.classList.remove("hide");
         break;
       case "perdeu":
-        alert("você perdeu");
+        revealWord.innerText = this.palavraSecreta.join("");
+        revealWord.parentElement.parentElement.style.zIndex = "3";
+        revealWord.parentElement.parentElement.classList.remove("hide");
       default:
         break;
     }
   }
+
+  endGame(result) {}
 }
 
 // module.exports = Forca;
@@ -145,21 +151,26 @@ async function getWord() {
 
   const data = await response.json();
 
-  console.log(data);
-
   return data;
 }
 
 const startButton = document.querySelector("#start-button");
+const endButton = document.querySelector("#end-button");
 
-startButton.addEventListener("click", async () => {
-  // startButton.parentElement.parentElement.classList.add("hide");
+startButton.addEventListener("click", (e) => {
+  startGame(e);
+});
 
-  const word = await getWord();
+endButton.addEventListener("click", (e) => {
+  startGame(e);
+});
 
-  console.log(word);
+async function startGame(e) {
+  const { word } = await getWord();
 
-  const jogo = new Forca(word.word.normalize("NFD"));
+  const jogo = new Forca(word.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 
   jogo.init();
-});
+
+  e.target.parentElement.classList.add("hide");
+}
