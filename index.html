@@ -16,10 +16,10 @@
 <body>
 
     <section class="start-section">
-        <div class="start-section__text-box">
-            <h1 class="start-section__title">Bem vindo ao Jogo da Forca</h1>
-            <button class="start-section__start-button">Começar!</button>
-        </div>
+
+        <h1 class="start-section__title">Bem vindo ao Jogo da Forca</h1>
+        <button class="start-section__start-button" id="start-button">Começar!</button>
+
 
     </section>
 
@@ -34,6 +34,12 @@
         <div class="game-letters">
 
         </div>
+    </section>
+
+    <section class="end-section hide">
+        <button class="end-section__button" id="end-button">Jogar novamente?</button>
+
+        <p class="end-section__reveal-div">A palavra era: <span class="reveal-word"></span></p>
     </section>
 
     <script src="app.js"></script>

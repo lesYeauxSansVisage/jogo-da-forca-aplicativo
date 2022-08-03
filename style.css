@@ -60,16 +60,16 @@ body {
 }
 
 .start-section__start-button {
-  color: var(--font-color);
+  color: var(--main-color);
   font-size: 2rem;
 
-  background-color: var(--main-color);
-  padding: 20px 10px;
-  border-radius: 4px;
+  background-color: transparent;
+  padding: 10px 20px;
+
+  border: 3px solid var(--main-color);
+  border-radius: 30px;
 
   transition: all 0.4s ease-in-out;
-
-  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
 
 button {
@@ -80,9 +80,9 @@ button {
 
 .start-section__start-button:hover,
 .start-section__start-button:active {
-  background-color: var(--font-color);
-  color: var(--secondary-color);
-  padding: 30px 20px;
+  background-color: var(--secondary-color);
+  color: var(--main-color);
+  padding: 20px 30px;
   letter-spacing: 3px;
 }
 
@@ -106,7 +106,6 @@ button {
 
   color: var(--font-color);
 }
-
 
 .game-letters {
   display: flex;
@@ -162,20 +161,28 @@ button {
 }
 
 .end-section__button {
-  background-color: var(--secondary-color);
-  padding: 2rem;
+  background-color: transparent;
+  color: var(--font-color);
+  border: 3px solid var(--font-color);
+  border-radius: 30px;
+  padding: 20px 10px;
+  max-width: 80%;
   font-size: 3rem;
+  transition: all 0.4s ease;
 }
 
-.start-section__start-button,
-.end-section__button {
-  clip-path: polygon(0% 0%, 85% 0, 100% 50%, 85% 100%, 0% 100%);
+.end-section__button:active,
+.end-section__button:hover {
+  padding: 30px 20px;
 }
 
 .end-section__reveal-div {
-  background-color: rgba(238, 238, 238, 0.5);
+  background-color: rgba(238, 238, 238, 0.8);
+  max-width: 80%;
+  border-radius: 30px;
+  text-align: center;
   font-size: 2rem;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .start-section,
@@ -192,4 +199,10 @@ button {
 
 .end-section {
   z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .game-section__display {
+    font-size: 2rem;
+  }
 }

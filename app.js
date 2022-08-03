@@ -59,7 +59,7 @@ class Forca {
     }
 
     if (
-      this.dados.palavra.join("") === this.palavraSecreta &&
+      this.dados.palavra.join("") === this.palavraSecreta.join("") &&
       this.dados.vidas > 0
     ) {
       return "ganhou";
@@ -134,7 +134,6 @@ class Forca {
         break;
       case "perdeu":
         revealWord.innerText = this.palavraSecreta.join("");
-        revealWord.parentElement.parentElement.style.zIndex = "3";
         revealWord.parentElement.parentElement.classList.remove("hide");
       default:
         break;
